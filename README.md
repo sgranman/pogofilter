@@ -49,15 +49,15 @@ The stack is Vite, React and TypeScript, made installable and offline-capable wi
 
 ## Deploying
 
-The site is static. The Dockerfile runs the tests, builds the site, and serves `dist/` with nginx on port 8080, sending a strict Content-Security-Policy and no access logs.
+The site is static. To run it on your own machine:
 
-- **On your own machine:** `docker compose up -d --build` serves http://localhost:8080.
-- **Behind Cloudflare Tunnel:** use `docker-compose.server.yml`. It publishes no ports. It joins the external `web` Docker network that `cloudflared` is on, so route the public hostname to `http://pogofilter:8080`.
+```sh
+docker compose up -d --build    # http://localhost:8080
+```
 
-  ```sh
-  echo COMPOSE_FILE=docker-compose.server.yml > .env
-  docker compose up -d --build
-  ```
+The root Dockerfile runs the tests, builds the site, and serves `dist/` with nginx on port 8080. It sends a strict Content-Security-Policy and keeps no access logs.
+
+The production deploy to pogofilter.sgran.net is `deploy/deploy.sh`. See [deploy/README.md](deploy/README.md).
 
 ## Disclaimer
 

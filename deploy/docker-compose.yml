@@ -1,0 +1,27 @@
+# Lives at ~/docker/pogofilter/docker-compose.yml on the host.
+# Reachable only through the cloudflared container on the shared `web`
+# network. Public Hostname route (Zero Trust dashboard):
+#   pogofilter.sgran.net -> http://pogofilter:8080
+services:
+  pogofilter:
+    build: /home/sgran/pogofilter
+    image: pogofilter
+    container_name: pogofilter
+    restart: unless-stopped
+    # Static files only: nothing to write but nginx's scratch space.
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    networks:
+      - web
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+
+networks:
+  web:
+    external: true
