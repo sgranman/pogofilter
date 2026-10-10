@@ -167,7 +167,6 @@ const RANGE_SHORTCUTS: Record<string, { label: string; text: string }[]> = {
   age: [
     { label: 'Today', text: 'age0' },
     { label: 'Last 7 days', text: 'age0-6' },
-    { label: 'Older than 30 days', text: 'age31-' },
   ],
   distance: [{ label: '100 km or more', text: 'distance100-' }],
   buddy: [
@@ -208,6 +207,7 @@ function RangePanel({ onPick }: { onPick: (text: string) => void }) {
           </button>
         ))}
       </div>
+      {prefix === 'age' && <AgeForm onPick={onPick} />}
       {RANGE_SHORTCUTS[prefix] && (
         <div className="choices choices--plain">
           {RANGE_SHORTCUTS[prefix].map((s) => (
@@ -217,6 +217,7 @@ function RangePanel({ onPick }: { onPick: (text: string) => void }) {
           ))}
         </div>
       )}
+      {prefix === 'age' && <h3 className="picker__sub">Or an exact span of days since caught</h3>}
       <div className="rangeform">
         <label>
           <span>From</span>
@@ -237,6 +238,69 @@ function RangePanel({ onPick }: { onPick: (text: string) => void }) {
         {field.hint}. {valid ? `Reads as: ${describe({ text, not: false }).gloss}.` : 'Leave one side empty for “or more” / “or less”.'}
       </p>
     </>
+  );
+}
+
+/**
+ * Plain-language age searches. The game counts whole days since the catch,
+ * with `age0` meaning "less than a day ago", so the last N days is `age0-(N-1)`
+ * and "more than N days ago" is `ageN-`.
+ */
+function AgeForm({ onPick }: { onPick: (text: string) => void }) {
+  const [within, setWithin] = useState('');
+  const [older, setOlder] = useState('');
+  const w = Number(within);
+  const o = Number(older);
+  const withinText = within !== '' && w >= 1 ? (w === 1 ? 'age0' : `age0-${w - 1}`) : '';
+  const olderText = older !== '' && o >= 1 ? `age${o}-` : '';
+  return (
+    <div className="ageform" role="group" aria-labelledby="age-h">
+      <h3 id="age-h" className="ageform__head">
+        Caught…
+      </h3>
+      <form
+        className="sentence"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (withinText) onPick(withinText);
+        }}
+      >
+        <label htmlFor="age-within">in the last</label>
+        <input
+          id="age-within"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={within}
+          placeholder="7"
+          onChange={(e) => setWithin(e.target.value.replace(/\D/g, '').slice(0, 4))}
+        />
+        <span>days</span>
+        <button type="submit" className="btn btn--ink" disabled={!withinText}>
+          Stamp
+        </button>
+      </form>
+      <form
+        className="sentence"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (olderText) onPick(olderText);
+        }}
+      >
+        <label htmlFor="age-older">more than</label>
+        <input
+          id="age-older"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={older}
+          placeholder="30"
+          onChange={(e) => setOlder(e.target.value.replace(/\D/g, '').slice(0, 4))}
+        />
+        <span>days ago</span>
+        <button type="submit" className="btn btn--ink" disabled={!olderText}>
+          Stamp
+        </button>
+      </form>
+    </div>
   );
 }
 

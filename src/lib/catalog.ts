@@ -139,7 +139,7 @@ export interface RangeField {
 export const RANGES: RangeField[] = [
   { prefix: 'cp', label: 'CP', min: 10, max: 9999, hint: 'Combat Power' },
   { prefix: 'hp', label: 'HP', min: 1, max: 999, hint: 'Max HP' },
-  { prefix: 'age', label: 'Days since caught', unit: 'days', min: 0, max: 4000, hint: '0 = caught today' },
+  { prefix: 'age', label: 'When caught', unit: 'days', min: 0, max: 4000, hint: 'Days since caught; 0 = in the last 24 hours' },
   { prefix: 'year', label: 'Year caught', min: 2016, max: 2030, hint: '2016 onward' },
   { prefix: 'distance', label: 'Distance caught', unit: 'km', min: 0, max: 20000, hint: 'km from where you are now' },
   { prefix: 'buddy', label: 'Buddy level', min: 0, max: 5, hint: '0 never a buddy … 5 Best Buddy' },

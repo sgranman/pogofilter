@@ -54,6 +54,11 @@ suite('describe', () => {
     expect(d('cp-1500').label).toBe('CP ≤ 1500');
     expect(d('age0').label).toBe('Today');
     expect(d('age0-6').gloss).toBe('caught in the last 7 days');
+    expect(d('age0-6').label).toBe('Last 7 days');
+    expect(d('age-13').label).toBe('Last 14 days');
+    expect(d('age31-').label).toBe('31+ days ago');
+    expect(d('age31-').gloss).toBe('caught 31+ days ago');
+    expect(d('age5').label).toBe('5 days ago');
     expect(d('distance100-').gloss).toBe('caught 100 km or more away');
     expect(d('buddy5').gloss).toBe('Best Buddy');
     expect(d('buddy2-5', true).gloss).toBe('not Good Buddy or better');

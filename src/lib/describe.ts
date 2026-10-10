@@ -52,11 +52,19 @@ function rangeLabel(min: number | null, max: number | null): string {
   return `≤ ${max}`;
 }
 
+function ageLabel(min: number | null, max: number | null): string {
+  if (min === 0 && max === 0) return 'Today';
+  if ((min ?? 0) === 0 && max != null) return `Last ${max + 1} days`;
+  if (max == null) return `${min}+ days ago`;
+  if (min === max) return `${min} days ago`;
+  return `${min}–${max} days ago`;
+}
+
 function ageGloss(min: number | null, max: number | null): string {
   if (min === 0 && max === 0) return 'caught today';
-  if (min === 0 && max != null) return `caught in the last ${max + 1} days`;
+  if ((min ?? 0) === 0 && max != null) return `caught in the last ${max + 1} days`;
   if (max == null) return `caught ${min}+ days ago`;
-  if (min == null) return `caught within ${max} days`;
+  if (min === max) return `caught ${min} days ago`;
   return `caught ${rangePhrase(min, max, 'days')} ago`;
 }
 
@@ -119,8 +127,7 @@ export function describe(term: Term): Described {
       else if (m[1] === 'year') gloss = `caught in ${rangePhrase(r.min, r.max)}`;
       else if (m[1] === 'distance') gloss = `caught ${rangePhrase(r.min, r.max, 'km')} away`;
       else gloss = `${field.label} ${rangePhrase(r.min, r.max)}`;
-      const label =
-        m[1] === 'age' && r.min === 0 && r.max === 0 ? 'Today' : `${field.label} ${rangeLabel(r.min, r.max)}`;
+      const label = m[1] === 'age' ? ageLabel(r.min, r.max) : `${field.label} ${rangeLabel(r.min, r.max)}`;
       return negate({ kind: 'range', label, gloss }, not);
     }
   }

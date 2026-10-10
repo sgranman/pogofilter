@@ -1380,6 +1380,47 @@ textarea::placeholder {
   color: var(--print-soft);
 }
 
+/* Both sentences share one grid, so their inputs and buttons line up. */
+.ageform {
+  display: grid;
+  grid-template-columns: max-content 5.5ch max-content 1fr;
+  align-items: center;
+  gap: 10px 8px;
+  margin-bottom: 14px;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.ageform__head {
+  grid-column: 1 / -1;
+  margin-bottom: -2px;
+  font-family: var(--display);
+  word-spacing: var(--display-spacing);
+  font-weight: 400;
+  font-size: 1.05rem;
+}
+
+.sentence {
+  display: contents;
+}
+
+.sentence .btn {
+  justify-self: end;
+}
+
+.sentence input {
+  text-align: center;
+  font-family: var(--code);
+  padding: 8px 4px;
+}
+
+.picker__sub {
+  margin: 14px 0 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--print-soft);
+}
+
 .inline-form {
   display: flex;
   gap: 8px;
