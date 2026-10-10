@@ -38,6 +38,7 @@ PoGoFilter is a builder, not a cheat sheet. The player starts from a suggested f
 ## Capabilities and Constraints
 
 - **Privacy:** no logins, accounts, or personal data. Nothing about a player's filters is ever sent to the server.
+- **Optional usage counts:** a deployment can opt in at build time (`VITE_STATS=1`, see stats/README.md). It then records anonymous daily totals of events such as cards saved, strings copied and suggestions opened. No ids, cookies, IPs or card contents are kept, and the footer says so. pogofilter.sgran.net opts in; the open-source default is off.
 - **Saved filters:** stored in the browser's localStorage, per device.
 - **Portability:**
   - Share links carry the filter in the URL #fragment, which never reaches the server.
@@ -64,7 +65,7 @@ PoGoFilter is a builder, not a cheat sheet. The player starts from a suggested f
 2. **Show what it means.** Every filter shows the exact string and a plain-English reading of it.
 3. **Copy is the hero.** The path from opening the app to having the string on the clipboard is as short as possible on a phone.
 4. **Teach without gatekeeping.** Beginners get labels and explanations, and experienced players can edit the raw string directly.
-5. **Private by construction.** No accounts, no tracking, and nothing on the server.
+5. **Private by construction.** No accounts and nothing personal on the server. Any counting is anonymous, aggregate, opt-in per deployment, and disclosed.
 
 ## Accessibility & Inclusion
 

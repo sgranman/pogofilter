@@ -9,3 +9,4 @@ dev-dist
 .impeccable/*.json
 !.impeccable/design.json
 .impeccable/questions/
+deploy/stats.env

@@ -27,9 +27,15 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
+        // The optional stats service owns these; never answer them with the app shell.
+        navigateFallbackDenylist: [/^\/admin/, /^\/api\//],
       },
     }),
   ],
+  // For trying the optional stats locally: `node stats/server.mjs` + `VITE_STATS=1 npm run dev`.
+  server: {
+    proxy: { '/api': 'http://localhost:8090', '/admin': 'http://localhost:8090' },
+  },
   test: {
     environment: 'node',
   },

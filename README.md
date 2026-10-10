@@ -14,7 +14,8 @@ Every card shows the exact string and a plain-English reading of it. Tap **Copy*
 
 ## Privacy
 
-- **No accounts:** no logins, no analytics, no cookies.
+- **No accounts:** no logins and no cookies.
+- **No analytics by default:** the build has no tracking code. A deployment can opt in to anonymous totals, such as "strings copied today", with no ids, cookies or IP addresses kept. pogofilter.sgran.net does, and says so in its footer. See [stats/README.md](stats/README.md).
 - **Local storage:** saved cards live in your browser's `localStorage`, on that device only.
 - **Share links:** the filter is carried after the `#`, which browsers never send to the server.
 - **Backups:** Back up / Restore exports and imports your cards as a JSON file.

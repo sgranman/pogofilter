@@ -1,8 +1,8 @@
 # The production stack on sgran-ubuntu. The repo is checked out at
 # ~/docker/pogofilter and deploy/update.sh runs
 #   docker compose -f deploy/docker-compose.yml up -d --build
-# whenever origin/main moves. The image is the repo-root Dockerfile, which
-# runs the tests before building, so a failing commit never goes live.
+# whenever origin/main moves. The site image is the repo-root Dockerfile,
+# which runs the tests before building, so a failing commit never goes live.
 #
 # Reachable only through the cloudflared container on the shared `web`
 # network. Public Hostname route (Zero Trust dashboard):
@@ -11,7 +11,11 @@ name: pogofilter
 
 services:
   pogofilter:
-    build: ..
+    build:
+      context: ..
+      args:
+        # This deployment turns on the optional anonymous counters.
+        VITE_STATS: "1"
     image: pogofilter
     container_name: pogofilter
     restart: unless-stopped
@@ -21,14 +25,42 @@ services:
       - /var/cache/nginx
       - /var/run
       - /tmp
+    volumes:
+      # Routes /api/e and /admin/ to the stats service below.
+      - ./nginx-stats.conf:/etc/nginx/snippets/stats.conf:ro
     networks:
       - web
-    logging:
+      - internal
+    logging: &logging
       driver: json-file
       options:
         max-size: "5m"
         max-file: "2"
 
+  # Optional anonymous counters (stats/README.md). Only nginx can reach it.
+  stats:
+    build: ../stats
+    image: pogofilter-stats
+    container_name: pogofilter-stats
+    restart: unless-stopped
+    read_only: true
+    env_file:
+      # CF_ACCESS_TEAM_DOMAIN, CF_ACCESS_AUD and/or ADMIN_TOKEN for /admin.
+      # Lives only on the server; never committed.
+      - path: stats.env
+        required: false
+    environment:
+      TZ: ${TZ:-America/Los_Angeles}
+    volumes:
+      - stats-data:/data
+    networks:
+      - internal
+    logging: *logging
+
 networks:
   web:
     external: true
+  internal:
+
+volumes:
+  stats-data:

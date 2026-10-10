@@ -2,6 +2,7 @@ import { Copy, Download, Plus, TriangleAlert, Upload } from 'lucide-react';
 import { useRef } from 'react';
 import { copyText, go } from '../lib/nav';
 import { PRESET_GROUPS, PRESETS } from '../lib/presets';
+import { STATS_ENABLED, track } from '../lib/stats';
 import { exportCards, importCards, type SavedCard } from '../lib/storage';
 import { parse } from '../lib/syntax';
 import Stamp from './Stamp';
@@ -17,8 +18,11 @@ interface Props {
 export default function Home({ cards, onCards, missing }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const quickCopy = async (s: string, name: string) =>
-    toast((await copyText(s)) ? `Copied “${name}”. Paste it into Pokémon GO.` : 'Couldn’t reach the clipboard. Open the card to copy.');
+  const quickCopy = async (c: SavedCard) => {
+    const ok = await copyText(c.string);
+    if (ok) track('copy', c.presetId);
+    toast(ok ? `Copied “${c.name}”. Paste it into Pokémon GO.` : 'Couldn’t reach the clipboard. Open the card to copy.');
+  };
 
   const doExport = () => {
     const blob = new Blob([exportCards(cards)], { type: 'application/json' });
@@ -27,12 +31,14 @@ export default function Home({ cards, onCards, missing }: Props) {
     a.download = `pogofilter-cards-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    track('export');
   };
 
   const doImport = async (file: File) => {
     try {
       const r = importCards(cards, await file.text());
       onCards(r.cards);
+      if (r.added) track('import');
       toast(r.added ? `Added ${r.added} card${r.added === 1 ? '' : 's'}${r.skipped ? `, skipped ${r.skipped} you already had` : ''}.` : 'Nothing new in that file.');
     } catch {
       toast('That file isn’t a PoGoFilter backup.');
@@ -63,7 +69,7 @@ export default function Home({ cards, onCards, missing }: Props) {
                   <span className="ticket__name">{c.name}</span>
                   <code className="ticket__string">{c.string || 'Blank'}</code>
                 </a>
-                <button type="button" className="ticket__copy" onClick={() => quickCopy(c.string, c.name)} disabled={!c.string} aria-label={`Copy ${c.name}`}>
+                <button type="button" className="ticket__copy" onClick={() => quickCopy(c)} disabled={!c.string} aria-label={`Copy ${c.name}`}>
                   <Copy aria-hidden="true" strokeWidth={2.5} />
                 </button>
               </li>
@@ -149,8 +155,11 @@ export default function Home({ cards, onCards, missing }: Props) {
           />
         </div>
         <p>
-          No accounts, no tracking. Your cards are stored in this browser and never sent anywhere. Share links carry the filter after the{' '}
-          <code>#</code>, which browsers don’t send to servers.
+          {STATS_ENABLED
+            ? 'No accounts and no personal data. This site counts anonymous totals (cards saved, strings copied, suggestions opened), with no ids, cookies or IP addresses kept. '
+            : 'No accounts, no tracking. '}
+          Your cards are stored in this browser and never sent anywhere. Share links carry the filter after the <code>#</code>, which
+          browsers don’t send to servers.
         </p>
         <p>
           Fan-made and unofficial. Not affiliated with Niantic, Nintendo, Creatures, GAME FREAK or The Pokémon Company. Pokémon and

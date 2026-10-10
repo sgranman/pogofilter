@@ -23,6 +23,7 @@ The server follows its own conventions (see `~/docker/CLAUDE.md` there) and mirr
   - It has docker, compose and git, plus the host Docker socket.
   - It runs as uid 1000 with the host's docker group, so nothing in the checkout becomes root-owned.
 - **`deploy/update.sh`:** fetches `origin/main` and does nothing if it hasn't moved. Otherwise it fast-forwards, runs `compose up -d --build`, waits for the container's healthcheck, and prunes the old image.
+- **`pogofilter-stats`:** the optional anonymous counters, on a private network that only the site's nginx can reach. `deploy/nginx-stats.conf` routes `/api/e` and `/admin/` to it. Its `/admin` credentials live in `deploy/stats.env` on the server, which is git-ignored. See [../stats/README.md](../stats/README.md).
 - **Ofelia (`~/docker/ofelia/config.ini`):** execs the update script every 15 minutes.
 
   ```ini
@@ -43,6 +44,6 @@ cd ~/docker/pogofilter && docker compose -f deploy/deployer.compose.yml up -d --
 
 ## Notes
 
-- **No state:** players' cards live in their own browsers, so there is nothing to back up.
+- **State:** players' cards live in their own browsers. The only server-side state is the stats total in the `pogofilter_stats-data` volume, which is nice to keep but not precious.
 - **Service worker updates:** nginx sends `sw.js`, `index.html` and the manifest with `Cache-Control: no-cache`. Installed copies pick up a deploy on their next launch.
 - **Cloudflare cache:** Cloudflare's edge briefly caches 404s, about 3 minutes. Right after a route change, a stale 404 can outlive the fix.

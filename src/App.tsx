@@ -6,6 +6,7 @@ import { Toaster, toast } from './components/Toast';
 import { go } from './lib/nav';
 import { PRESET_BY_ID } from './lib/presets';
 import { readShared } from './lib/share';
+import { trackOpen } from './lib/stats';
 import { loadCards, newId, saveCards, type SavedCard } from './lib/storage';
 
 // Routes live in the URL fragment, which never reaches the server:
@@ -36,6 +37,8 @@ function routeFrom(hash: string): Route {
 export default function App() {
   const [hash, setHash] = useState(location.hash);
   const [cards, setCards] = useState<SavedCard[]>(loadCards);
+
+  useEffect(trackOpen, []);
 
   useEffect(() => {
     const on = () => setHash(location.hash);

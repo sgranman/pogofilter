@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>PoGoFilter usage</title>
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #0e7f78;
+    --stock: #ffffff;
+    --stock-2: #eef5f4;
+    --print: #1d2742;
+    --print-soft: #4b5674;
+    --rule: #d5e1e0;
+    --yellow: #ffcb3d;
+    --font: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --code: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --ground: #061a19;
+      --stock: #123634;
+      --stock-2: #18433f;
+      --print: #eaf6f4;
+      --print-soft: #a8cbc6;
+      --rule: #2c5a55;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--ground);
+    color: var(--print);
+    font: 15px/1.5 var(--font);
+  }
+  ::selection { background: var(--yellow); color: #1d2742; }
+  main { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; color: #fff; }
+  h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.01em; }
+  header p { margin: 4px 0 0; opacity: 0.85; font-size: 14px; }
+  .range { display: flex; gap: 6px; }
+  .range button {
+    min-height: 40px; padding: 0 14px; border-radius: 999px;
+    border: 2px solid rgb(255 255 255 / 0.5); background: transparent; color: #fff;
+    font: inherit; font-weight: 700; cursor: pointer;
+  }
+  .range button[aria-pressed='true'] { background: var(--yellow); border-color: var(--yellow); color: #1d2742; }
+  .range button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  section {
+    margin-top: 20px; padding: 18px; border-radius: 20px;
+    background: var(--stock); box-shadow: 0 12px 28px -14px rgb(3 40 37 / 0.6);
+  }
+  h2 { margin: 0 0 4px; font-size: 1.1rem; }
+  section > p { margin: 0 0 12px; color: var(--print-soft); font-size: 14px; }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { padding: 8px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--rule); }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { font-size: 12.5px; font-weight: 700; color: var(--print-soft); }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.zero { color: color-mix(in srgb, var(--print-soft) 55%, transparent); }
+  code { font-family: var(--code); font-size: 13px; }
+  .key td:nth-child(2) { font-weight: 700; }
+  .empty { color: var(--print-soft); }
+  footer { margin-top: 20px; color: #fff; opacity: 0.8; font-size: 13px; max-width: 70ch; }
+  #error { margin: 16px 0 0; padding: 10px 14px; border-radius: 12px; background: #d23a2f; color: #fff; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>PoGoFilter usage</h1>
+      <p id="who"></p>
+    </div>
+    <div class="range" role="group" aria-label="Range">
+      <button type="button" data-days="7">7 days</button>
+      <button type="button" data-days="30" aria-pressed="true">30 days</button>
+      <button type="button" data-days="90">90 days</button>
+    </div>
+  </header>
+
+  <p id="error" hidden></p>
+
+  <section aria-labelledby="totals-h">
+    <h2 id="totals-h">Totals</h2>
+    <p>Each row counts moments, not people. There are no ids, so one person copying twice counts as 2.</p>
+    <div class="scroll"><table class="key" id="totals"></table></div>
+  </section>
+
+  <section aria-labelledby="presets-h">
+    <h2 id="presets-h">Suggestions</h2>
+    <p id="presets-lede"></p>
+    <div class="scroll"><table id="presets"></table></div>
+  </section>
+
+  <section aria-labelledby="daily-h">
+    <h2 id="daily-h">By day</h2>
+    <p id="daily-lede"></p>
+    <div class="scroll"><table id="daily"></table></div>
+  </section>
+
+  <footer>
+    Stored: one running total per day, event and suggestion. No IP addresses, ids, cookies or user agents ever reach the
+    database.
+  </footer>
+</main>
+<script src="/admin/admin.js" type="module"></script>
+</body>
+</html>

@@ -4,7 +4,9 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-RUN npm test && npm run build
+# Optional anonymous usage counts (see stats/README.md). Off unless set to 1.
+ARG VITE_STATS=""
+RUN npm test && VITE_STATS="$VITE_STATS" npm run build
 
 FROM nginx:1.27-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf

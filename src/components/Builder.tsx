@@ -4,6 +4,7 @@ import { describe, describeClause, isProtectClause } from '../lib/describe';
 import { copyText, go } from '../lib/nav';
 import { PRESET_BY_ID, PROTECT } from '../lib/presets';
 import { shareUrl } from '../lib/share';
+import { track } from '../lib/stats';
 import { normalize, parse, serialize, type Expr, type Term } from '../lib/syntax';
 import Picker from './Picker';
 import Sheet from './Sheet';
@@ -47,6 +48,15 @@ export default function Builder({ draft, savedId, onChange, onSave, onDelete }: 
   const preset = draft.presetId ? PRESET_BY_ID.get(draft.presetId) : undefined;
   const string = useMemo(() => serialize(expr), [expr]);
   const pristine = useRef(true);
+
+  // One count per card opened: which suggestion, a share link, or a blank card.
+  useEffect(() => {
+    if (savedId) return;
+    if (draft.presetId) track('preset', draft.presetId);
+    else if (draft.fromShare) track('shared');
+    else track('blank');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (pristine.current) {
@@ -92,11 +102,13 @@ export default function Builder({ draft, savedId, onChange, onSave, onDelete }: 
 
   const save = () => {
     onSave({ ...draft, name, string });
+    track('save', draft.presetId);
     toast('Saved to your cards on this device.');
   };
 
   const share = async () => {
     const url = shareUrl({ name, string });
+    track('share');
     if (navigator.share) {
       try {
         await navigator.share({ title: `${name} · PoGoFilter`, url });
@@ -245,6 +257,7 @@ export default function Builder({ draft, savedId, onChange, onSave, onDelete }: 
       <Stub
         value={string}
         meta={metaLine(stations.length, safe.length, string.length)}
+        onCopied={() => track('copy', draft.presetId)}
         onEditText={() => {
           setRawText(string);
           setSheet({ mode: 'text' });

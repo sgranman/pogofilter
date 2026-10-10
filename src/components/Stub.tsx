@@ -8,13 +8,14 @@ interface Props {
   /** Segments like "4 rules", "34 chars"; each stays on one line. */
   meta: string[];
   onEditText: () => void;
+  onCopied?: () => void;
 }
 
 /**
  * The torn-off ticket stub pinned to the thumb zone. Its string area has a
  * fixed height, so the string changes in place and nothing on the page jumps.
  */
-export default function Stub({ value, meta, onEditText }: Props) {
+export default function Stub({ value, meta, onEditText, onCopied }: Props) {
   const [copied, setCopied] = useState(0);
   const [overflows, setOverflows] = useState(false);
   const scroller = useRef<HTMLSpanElement>(null);
@@ -33,8 +34,10 @@ export default function Stub({ value, meta, onEditText }: Props) {
 
   const copy = async () => {
     if (!value) return;
-    if (await copyText(value)) setCopied(Date.now());
-    else toast('Couldn’t reach the clipboard. Long-press the string to copy it.');
+    if (await copyText(value)) {
+      setCopied(Date.now());
+      onCopied?.();
+    } else toast('Couldn’t reach the clipboard. Long-press the string to copy it.');
   };
 
   return (
