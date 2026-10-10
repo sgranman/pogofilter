@@ -16,6 +16,9 @@ With `VITE_STATS=1` at build time, the app sends one fire-and-forget `POST /api/
 | `copy` | a search string is copied | the suggestion id it started from, if any |
 | `share` | a share link is made | |
 | `export` / `import` | a backup is downloaded / restored | |
+| `sweep` | a species sweep is started | |
+
+Copies made from a sweep step are counted as `copy`, with `sweep-<step>` in place of a suggestion id, e.g. `sweep-rest`.
 
 The service adds 1 to a running total keyed by **(day, event, suggestion id)**, and that is all the database holds.
 - **Never sent:** card names, search strings, ids or cookies.

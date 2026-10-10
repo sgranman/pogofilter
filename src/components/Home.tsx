@@ -1,4 +1,5 @@
-import { Copy, Download, Plus, TriangleAlert, Upload } from 'lucide-react';
+import { ChevronRight, Copy, Download, Plus, TriangleAlert, Upload } from 'lucide-react';
+import { isGuard } from '../lib/guards';
 import { useRef } from 'react';
 import { copyText, go } from '../lib/nav';
 import { PRESET_GROUPS, PRESETS } from '../lib/presets';
@@ -103,11 +104,10 @@ export default function Home({ cards, onCards, missing }: Props) {
             <ul className="rail__track">
               {PRESETS.filter((p) => p.group === g.id).map((p) => {
                 const expr = parse(p.string);
-                const isSafe = (c: (typeof expr)[number]) => c.length === 1 && c[0].not;
-                const rules = expr.filter((c) => !isSafe(c)).flat();
+                const rules = expr.filter((c) => !isGuard(c)).flat();
                 // A pure cleanup card has only keep-safe stamps; show a few of those instead.
                 const shown = rules.length ? rules : expr.flat();
-                const safe = rules.length ? expr.filter(isSafe).length : expr.length - Math.min(4, expr.length);
+                const safe = rules.length ? expr.filter(isGuard).length : expr.length - Math.min(4, expr.length);
                 return (
                   <li key={p.id}>
                     <a className="mini" href={`#/preset/${p.id}`}>
@@ -132,6 +132,23 @@ export default function Home({ cards, onCards, missing }: Props) {
             </ul>
           </section>
         ))}
+      </section>
+
+      <section className="advanced" aria-labelledby="advanced-h">
+        <h2 id="advanced-h" className="suggest__title">
+          Advanced
+        </h2>
+        <a className="mini mini--wide" href="#/sweep">
+          <span className="mini__hole" aria-hidden="true" />
+          <span className="mini__name">Species sweep</span>
+          <span className="mini__blurb">
+            Too many “good” ones? Pare back one Pokémon at a time: keep the best few shinies, backgrounds, hundos, top 3★s and PvP
+            IVs, then transfer the rest. Re-sweep any time something better turns up.
+          </span>
+          <span className="mini__go">
+            Start a sweep <ChevronRight aria-hidden="true" />
+          </span>
+        </a>
       </section>
 
       <footer className="colophon">

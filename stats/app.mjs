@@ -23,6 +23,7 @@ export const EVENTS = {
   share: 'Share link made',
   export: 'Backup exported',
   import: 'Backup restored',
+  sweep: 'Species sweep started',
 };
 
 /** Suggestion ids are slugs; anything else is recorded without one. */

@@ -46,6 +46,7 @@ PoGoFilter is a builder, not a cheat sheet. The player starts from a suggested f
 - **Suggested filters:** starting points for common jobs, such as clearing trash, PvP candidates, trade fodder, and hundos. Every one can be customized.
 - **Building from scratch:** UI controls, plus editing the raw string directly. Raw strings round-trip into the controls where possible.
 - **Offline:** the app works offline once installed.
+- **Species sweep (advanced):** a per-species route of review searches and a final "transfer the rest", for players whose storage is mostly 3★. The player tags keepers as they sweep instead of tagging everything up front, and keepers can be swapped on a later sweep.
 
 ## Brand Commitments
 

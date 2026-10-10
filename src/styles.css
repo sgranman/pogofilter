@@ -750,6 +750,276 @@ svg.lucide {
   margin-top: 0;
 }
 
+/* ---- Advanced: species sweep ------------------------------------------- */
+
+.advanced {
+  margin-top: 8px;
+}
+
+.advanced .suggest__title {
+  margin-bottom: 14px;
+}
+
+.mini--wide {
+  max-width: 560px;
+  min-height: 0;
+}
+
+.mini__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 8px;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--print);
+}
+
+.rally__title {
+  font-family: var(--display);
+  word-spacing: var(--display-spacing);
+  font-weight: 400;
+  font-size: 1.7rem;
+  line-height: 1.2;
+}
+
+.picklist {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.picklist__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 2px solid var(--rule);
+  border-radius: 14px;
+  background: none;
+  color: var(--print);
+  font-weight: 800;
+  font-size: 15px;
+  text-align: left;
+  text-decoration: none;
+}
+
+.picklist__num {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--print-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.recent {
+  margin-top: 22px;
+}
+
+.recent h2 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--print-soft);
+}
+
+.sweepopts {
+  display: grid;
+  gap: 4px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--stock-2);
+}
+
+.sweepopts__tag {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.sweepopts__hash {
+  font-family: var(--code);
+  color: var(--print-soft);
+  margin-right: -6px;
+}
+
+.sweepopts__tag input {
+  font-family: var(--code);
+  max-width: 14rem;
+}
+
+.route--sweep {
+  margin-top: 24px;
+}
+
+.route--sweep::before {
+  bottom: 40px;
+}
+
+.step + .step {
+  margin-top: 22px;
+}
+
+.step__dot {
+  padding: 0;
+  cursor: pointer;
+}
+
+/* The tap target is bigger than the drawn station. */
+.step__dot::before {
+  content: '';
+  position: absolute;
+  inset: -9px;
+}
+
+.step__dot--fresh {
+  animation: land 300ms var(--ease-out) both;
+  --tilt: -8deg;
+}
+
+.step__body {
+  min-width: 0;
+}
+
+.step__title {
+  font-family: var(--display);
+  word-spacing: var(--display-spacing);
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  padding-top: 10px;
+}
+
+.step.is-done .step__title {
+  color: var(--print-soft);
+}
+
+.step__tip {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--print-soft);
+  text-wrap: pretty;
+}
+
+.step--final .step__tip {
+  color: var(--print);
+}
+
+.step__tip svg.lucide {
+  width: 16px;
+  height: 16px;
+  color: var(--void);
+  vertical-align: -3px;
+  margin-right: 6px;
+}
+
+.step__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.step__string {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--stock-2);
+  font-size: 13px;
+  line-height: 1.45;
+  word-break: break-all;
+}
+
+.copy.copy--small {
+  flex: none;
+  min-height: 46px;
+  padding: 0 16px 0 26px;
+  font-size: 1rem;
+  background:
+    linear-gradient(var(--yellow-edge) 55%, transparent 0) 13px 6px / 2px 8px repeat-y,
+    var(--yellow);
+  -webkit-mask:
+    radial-gradient(circle 6px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 6px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle 6px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 6px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
+}
+
+.copy.copy--small svg.lucide {
+  width: 18px;
+  height: 18px;
+}
+
+.sweepfoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 2px dashed var(--rule);
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--print-soft);
+}
+
+.link-btn--quiet {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--print-soft);
+}
+
+.link-btn--quiet svg.lucide {
+  width: 16px;
+  height: 16px;
+}
+
+/* 3★ tiers in the picker: multi-rule snippets, so they look unlike stamps. */
+.tiers {
+  display: grid;
+  gap: 8px;
+}
+
+.tier {
+  display: grid;
+  gap: 2px;
+  padding: 10px 14px;
+  border: 2px dashed color-mix(in srgb, var(--print) 40%, transparent);
+  border-radius: 16px;
+  background: none;
+  color: var(--print);
+  text-align: left;
+}
+
+.tier__label {
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.tier__hint {
+  font-size: 13.5px;
+  color: var(--print-soft);
+}
+
+.tier__code {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--print-soft);
+  word-break: break-all;
+}
+
 /* Keep safe: torn off below a perforation. */
 
 .safe {

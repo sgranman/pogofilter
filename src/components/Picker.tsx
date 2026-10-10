@@ -33,9 +33,11 @@ interface Props {
   /** Starts the picker excluded (for "Keep safe"). */
   initialNot?: boolean;
   onPick: (text: string, not: boolean) => void;
+  /** Adds several rules at once (the 3★ tiers). Omitted when replacing a stamp. */
+  onInsert?: (snippet: string) => void;
 }
 
-export default function Picker({ initialNot = false, onPick }: Props) {
+export default function Picker({ initialNot = false, onPick, onInsert }: Props) {
   const [tab, setTab] = useState<Tab>('special');
   const [not, setNot] = useState(initialNot);
   const pick = (text: string) => onPick(text, not);
@@ -69,7 +71,7 @@ export default function Picker({ initialNot = false, onPick }: Props) {
       <div className="picker__panel" role="tabpanel">
         {tab === 'special' && <KeywordPanel groups={['special', 'size']} not={not} onPick={pick} />}
         {tab === 'more' && <KeywordPanel groups={['evolve', 'source', 'region', 'gender', 'other']} not={not} onPick={pick} />}
-        {tab === 'iv' && <IvPanel not={not} onPick={pick} />}
+        {tab === 'iv' && <IvPanel not={not} onPick={pick} onInsert={onInsert} />}
         {tab === 'numbers' && <RangePanel onPick={pick} />}
         {tab === 'types' && <TypePanel not={not} onPick={pick} />}
         {tab === 'moves' && <MovePanel not={not} onPick={pick} />}
@@ -109,7 +111,18 @@ function KeywordPanel({ groups, not, onPick }: PanelProps & { groups: KeywordGro
   );
 }
 
-function IvPanel({ not, onPick }: PanelProps) {
+/**
+ * Splits of the 3★ band (82–98%) by how many stats are a perfect 15. "At least
+ * two of three" has no operator, so it is three OR-groups: every pair of
+ * stats has a perfect one.
+ */
+const TIERS = [
+  { label: 'Two or three perfect stats', hint: '91–98%: the best 3★s', snippet: '3*&4attack,4defense&4attack,4hp&4defense,4hp' },
+  { label: 'At most one perfect stat', hint: 'the middle and bottom of 3★', snippet: '3*&!4attack,!4defense&!4attack,!4hp&!4defense,!4hp' },
+  { label: 'No perfect stat', hint: '82–93%: the most cuttable', snippet: '3*&!4attack&!4defense&!4hp' },
+];
+
+function IvPanel({ not, onPick, onInsert }: PanelProps & { onInsert?: (snippet: string) => void }) {
   const [sel, setSel] = useState<Record<string, [number, number] | null>>({});
   const tap = (stat: string, n: number) =>
     setSel((s) => {
@@ -124,6 +137,20 @@ function IvPanel({ not, onPick }: PanelProps) {
         <h3>Appraisal stars</h3>
         <Choices terms={STARS.map((s) => `${s.n}*`)} not={not} onPick={onPick} />
       </section>
+      {onInsert && (
+        <section className="picker__group">
+          <h3>3★, split by perfect stats</h3>
+          <div className="tiers">
+            {TIERS.map((t) => (
+              <button key={t.label} type="button" className="tier" onClick={() => onInsert(t.snippet)}>
+                <span className="tier__label">{t.label}</span>
+                <span className="tier__hint">{t.hint}</span>
+                <code className="tier__code">{t.snippet}</code>
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
       <section className="picker__group">
         <h3>One stat</h3>
         <p className="hint">Tap a bar count, then another to stamp a span. Bars are 0 to 4, like the appraisal screen.</p>

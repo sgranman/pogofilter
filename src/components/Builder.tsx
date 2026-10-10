@@ -1,6 +1,7 @@
 import { ArrowLeft, Bookmark, Link2, Plus, ShieldCheck, Trash2, TriangleAlert, Undo2 } from 'lucide-react';
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
-import { describe, describeClause, isProtectClause } from '../lib/describe';
+import { describe, describeClause } from '../lib/describe';
+import { clauseKey, guardClause, guardGloss, guardLabel, isGuard } from '../lib/guards';
 import { copyText, go } from '../lib/nav';
 import { PRESET_BY_ID, PROTECT } from '../lib/presets';
 import { shareUrl } from '../lib/share';
@@ -36,8 +37,6 @@ type SheetState =
   | { mode: 'text' }
   | null;
 
-/** A single excluded term: shown in "Keep safe" rather than on the route. */
-const isKeepSafe = (c: Term[]) => c.length === 1 && c[0].not;
 
 export default function Builder({ draft, savedId, onChange, onSave, onDelete }: Props) {
   const [name, setName] = useState(draft.name);
@@ -67,9 +66,10 @@ export default function Builder({ draft, savedId, onChange, onSave, onDelete }: 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, string]);
 
-  const stations = expr.map((c, i) => ({ c, i })).filter(({ c }) => !isKeepSafe(c));
-  const safe = expr.map((c, i) => ({ c, i })).filter(({ c }) => isKeepSafe(c));
-  const safeKeys = new Set(safe.map(({ c }) => c[0].text.toLowerCase()));
+  // Clauses made only of excluded terms are "keep safe" rules, shown apart from the route.
+  const stations = expr.map((c, i) => ({ c, i })).filter(({ c }) => !isGuard(c));
+  const safe = expr.map((c, i) => ({ c, i, key: clauseKey(c) })).filter(({ c }) => isGuard(c));
+  const safeKeys = new Set(safe.map((s) => s.key));
 
   const mark = (clause: number, term: number) => setFresh(`${clause}:${term}:${Date.now()}`);
 
@@ -87,17 +87,22 @@ export default function Builder({ draft, savedId, onChange, onSave, onDelete }: 
   };
   const removeTerm = (clause: number, term: number) =>
     setExpr((e) => e.map((c, i) => (i === clause ? c.filter((_, j) => j !== term) : c)).filter((c) => c.length));
-  const toggleSafe = (text: string) => {
-    const at = expr.findIndex((c) => isKeepSafe(c) && c[0].text.toLowerCase() === text);
+  const insertClauses = (snippet: string) => {
+    const added = parse(snippet);
+    setExpr((e) => [...e, ...added]);
+    mark(expr.length, 0);
+  };
+  const toggleSafe = (key: string) => {
+    const at = expr.findIndex((c) => isGuard(c) && clauseKey(c) === key);
     if (at >= 0) setExpr((e) => e.filter((_, i) => i !== at));
     else {
-      setExpr((e) => [...e, [{ text, not: true }]]);
+      setExpr((e) => [...e, guardClause(key)]);
       mark(expr.length, 0);
     }
   };
   const protectAll = () => {
-    const missing = PROTECT.filter((t) => !safeKeys.has(t));
-    setExpr((e) => [...e, ...missing.map((text) => [{ text, not: true }])]);
+    const missing = PROTECT.filter((k) => !safeKeys.has(k));
+    setExpr((e) => [...e, ...missing.map(guardClause)]);
   };
 
   const save = () => {
@@ -222,24 +227,37 @@ export default function Builder({ draft, savedId, onChange, onSave, onDelete }: 
           <p className="safe__lede">Anything matching a red stamp never shows up. Tap to stamp or unstamp.</p>
           <div className="safe__grid">
             {safe
-              .filter(({ c }) => !PROTECT.includes(c[0].text.toLowerCase()))
-              .map(({ c, i }) => (
-                <Stamp key={i} term={c[0]} fresh={!!fresh?.startsWith(`${i}:0:`)} onClick={() => setSheet({ mode: 'edit', clause: i, term: 0 })} />
-              ))}
-            {PROTECT.map((t) =>
-              safeKeys.has(t) ? (
+              .filter((s) => !PROTECT.includes(s.key))
+              .map(({ c, i }) =>
+                c.length === 1 ? (
+                  <Stamp key={i} term={c[0]} fresh={!!fresh?.startsWith(`${i}:0:`)} onClick={() => setSheet({ mode: 'edit', clause: i, term: 0 })} />
+                ) : (
+                  <Stamp
+                    key={i}
+                    term={c[0]}
+                    label={guardLabel(c)}
+                    fresh={!!fresh?.startsWith(`${i}:0:`)}
+                    onClick={() => toggleSafe(clauseKey(c))}
+                  />
+                ),
+              )}
+            {PROTECT.map((k) => {
+              const clause = guardClause(k);
+              const s = safe.find((x) => x.key === k);
+              return s ? (
                 <Stamp
-                  key={t}
-                  term={{ text: t, not: true }}
-                  fresh={!!fresh && expr.findIndex((c) => isKeepSafe(c) && c[0].text.toLowerCase() === t) === Number(fresh.split(':')[0])}
-                  onClick={() => toggleSafe(t)}
+                  key={k}
+                  term={clause[0]}
+                  label={clause.length > 1 ? guardLabel(clause) : undefined}
+                  fresh={!!fresh?.startsWith(`${s.i}:`)}
+                  onClick={() => toggleSafe(k)}
                 />
               ) : (
-                <button key={t} type="button" className="ghost" onClick={() => toggleSafe(t)} aria-label={`Keep ${describe({ text: t, not: false }).gloss} Pokémon safe`}>
-                  {describe({ text: t, not: false }).label}
+                <button key={k} type="button" className="ghost" onClick={() => toggleSafe(k)} aria-label={`Keep ${guardGloss(clause)} safe`}>
+                  {guardLabel(clause)}
                 </button>
-              ),
-            )}
+              );
+            })}
             <button type="button" className="ghost ghost--more" onClick={() => setSheet({ mode: 'protect' })}>
               <Plus aria-hidden="true" /> Other
             </button>
@@ -283,6 +301,10 @@ export default function Builder({ draft, savedId, onChange, onSave, onDelete }: 
           <Picker
             onPick={(t, not) => {
               addStation(t, not);
+              setSheet(null);
+            }}
+            onInsert={(snippet) => {
+              insertClauses(snippet);
               setSheet(null);
             }}
           />
@@ -387,8 +409,8 @@ function metaLine(rules: number, safe: number, chars: number): string[] {
 }
 
 function describeSentence(expr: Expr): string {
-  const rules = expr.filter((c) => !isProtectClause(c) || c.length > 1).map(describeClause);
-  const safe = expr.filter((c) => isProtectClause(c) && c.length === 1).map((c) => describe({ ...c[0], not: false }).gloss);
+  const rules = expr.filter((c) => !isGuard(c)).map(describeClause);
+  const safe = expr.filter(isGuard).map(guardGloss);
   let s = rules.length ? `Shows Pokémon ${rules.map((r) => `(${r})`).join(' and ')}.` : 'Shows every Pokémon.';
   if (safe.length) {
     const list = safe.length > 1 ? `${safe.slice(0, -1).join(', ')} or ${safe.at(-1)}` : safe[0];

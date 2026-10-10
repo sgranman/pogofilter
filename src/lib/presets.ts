@@ -24,14 +24,19 @@ export interface Preset {
   tip?: string;
 }
 
-/** Everything a cleanup filter should refuse to show. */
+/**
+ * Everything a cleanup filter should refuse to show, as keep-safe clauses.
+ * The last one hides PvP-shaped IVs (see lib/guards.ts), which are often
+ * worth keeping at 1–2★.
+ */
 export const PROTECT = [
-  'shiny', 'lucky', 'legendary', 'mythical', 'ultrabeast', 'shadow', 'purified',
-  'costume', 'background', 'dynamax', 'gigantamax', 'fusion', 'adventureeffect',
-  'xxl', 'xxs', 'favorite', '4*', '3*', '@special', 'buddy2-5', 'mega1-3', '#',
+  '!shiny', '!lucky', '!legendary', '!mythical', '!ultrabeast', '!shadow', '!purified',
+  '!costume', '!background', '!dynamax', '!gigantamax', '!fusion', '!adventureeffect',
+  '!xxl', '!xxs', '!favorite', '!4*', '!3*', '!@special', '!buddy2-5', '!mega1-3', '!#',
+  '!0-1attack,!3-4defense,!3-4hp',
 ];
 
-const protect = PROTECT.map((t) => `!${t}`).join('&');
+const protect = PROTECT.join('&');
 
 export const PRESETS: Preset[] = [
   {

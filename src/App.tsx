@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Builder, { type Draft } from './components/Builder';
 import Home from './components/Home';
+import Sweep from './components/Sweep';
 import InkDefs from './components/InkDefs';
 import { Toaster, toast } from './components/Toast';
 import { go } from './lib/nav';
@@ -14,12 +15,22 @@ import { loadCards, newId, saveCards, type SavedCard } from './lib/storage';
 //   #/card/<id>        a saved card
 //   #/preset/<id>      a fresh copy of a suggestion
 //   #/new?s=…&n=…      a blank card, or one opened from a share link
+//   #/sweep[/<term>]   the species sweep (advanced), e.g. #/sweep/%2Beevee
 type Route =
   | { view: 'home' }
   | { view: 'card'; id: string }
-  | { view: 'new'; draft: Draft };
+  | { view: 'new'; draft: Draft }
+  | { view: 'sweep'; term?: string };
 
 function routeFrom(hash: string): Route {
+  const sweep = /^#\/sweep(?:\/(.+))?$/.exec(hash);
+  if (sweep) {
+    try {
+      return { view: 'sweep', term: sweep[1] ? decodeURIComponent(sweep[1]) : undefined };
+    } catch {
+      return { view: 'sweep' };
+    }
+  }
   let m = /^#\/card\/([\w-]+)$/.exec(hash);
   if (m) return { view: 'card', id: m[1] };
   m = /^#\/preset\/([\w-]+)$/.exec(hash);
@@ -60,7 +71,7 @@ export default function App() {
 
   const route = useMemo(() => routeFrom(hash), [hash]);
 
-  const pageKey = route.view === 'card' ? `card:${route.id}` : route.view;
+  const pageKey = route.view === 'card' ? `card:${route.id}` : route.view === 'sweep' ? `sweep:${route.term ?? ''}` : route.view;
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pageKey]);
@@ -105,6 +116,8 @@ export default function App() {
     ) : (
       <Home cards={cards} onCards={commit} missing />
     );
+  } else if (route.view === 'sweep') {
+    page = <Sweep key={route.term ?? ''} term={route.term} />;
   } else if (route.view === 'new') {
     page = <Builder key={hash} draft={route.draft} onSave={saveDraft} />;
   } else {

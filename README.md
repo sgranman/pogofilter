@@ -12,6 +12,26 @@ Pokémon GO only lets you manage storage through a search bar with a terse, undo
 
 Every card shows the exact string and a plain-English reading of it. Tap **Copy**, switch to Pokémon GO, and paste the string into the search bar in your Pokémon storage.
 
+## Species sweep (advanced)
+
+When even the safe cleanup leaves thousands of "good" Pokémon, sweep one species or family at a time. Each step has its own search and Copy button, and its station gets stamped when you've done it:
+
+1. Shinies.
+2. Backgrounds and costumes.
+3. Shadows and purified.
+4. XXL and XXS.
+5. Hundos.
+6. The best 3★s, with two or three perfect stats.
+7. PvP IVs.
+8. "Transfer the rest".
+
+Each review step shows every match, including last time's keepers, so you can swap in better ones and move your keep tag (`#keep` by default). Only the last step leaves tagged Pokémon out. It also always keeps favorites, luckies, legacy moves, buddies and Mega-evolved Pokémon, and by default anything with any tag. Progress is remembered per species on your device.
+
+Two tricks behind it are also in the stamp picker:
+
+- **Split 3★ by perfect stats.** `3*&4attack,4defense&4attack,4hp&4defense,4hp` means "at least two of three stats are 15".
+- **Keep PvP IVs safe.** `!0-1attack,!3-4defense,!3-4hp` means "not low Attack with high Defense and HP". Every cleanup suggestion now includes it.
+
 ## Privacy
 
 - **No accounts:** no logins and no cookies.

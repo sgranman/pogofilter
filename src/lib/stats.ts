@@ -1,10 +1,20 @@
-// Optional anonymous usage counts. Off unless the site is built with
-// VITE_STATS=1, in which case this module compiles down to nothing and the
-// app makes no requests at all. When on, each call sends one event name (and,
-// for suggestions, the suggestion's id) to the stats service in ./stats.
+// Optional anonymous usage counts. Unless the site is built with VITE_STATS=1,
+// this module compiles down to nothing and the app makes no requests at all.
+// When on, each call sends one event name (and, for suggestions, the
+// suggestion's id) to the stats service in ./stats.
 // No ids, cookies or card contents are ever sent.
 
-export type StatEvent = 'open' | 'preset' | 'blank' | 'shared' | 'save' | 'copy' | 'share' | 'export' | 'import';
+export type StatEvent =
+  | 'open'
+  | 'preset'
+  | 'blank'
+  | 'shared'
+  | 'save'
+  | 'copy'
+  | 'share'
+  | 'export'
+  | 'import'
+  | 'sweep';
 
 export const STATS_ENABLED = import.meta.env.VITE_STATS === '1';
 

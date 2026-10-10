@@ -10,14 +10,16 @@ interface Props {
   /** Plays the landing motion once; set on freshly added stamps. */
   fresh?: boolean;
   small?: boolean;
+  /** Overrides the derived label, e.g. "PvP IVs" for a multi-term keep-safe rule. */
+  label?: string;
 }
 
 /**
  * One term, inked like a rally stamp. Included terms are solid ink; excluded
  * (`!`) terms are hollow void-red rings, a different class at a glance.
  */
-export default function Stamp({ term, onClick, fresh, small }: Props) {
-  const d = describe(term);
+export default function Stamp({ term, onClick, fresh, small, label }: Props) {
+  const d = { ...describe(term), ...(label ? { label, gloss: label } : {}) };
   const ink = inkFor(d, term.text);
   const style = {
     '--ink': term.not ? 'var(--void)' : ink,
