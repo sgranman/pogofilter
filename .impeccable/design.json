@@ -1,0 +1,532 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-10T18:06:16+00:00",
+  "title": "Design System: PoGoFilter",
+  "extensions": {
+    "colorMeta": {
+      "route-teal": {
+        "role": "primary",
+        "displayName": "Route Teal",
+        "canonical": "#0e7f78",
+        "note": "dark: #061a19",
+        "tonalRamp": [
+          "#084541",
+          "#0d736d",
+          "#12a198",
+          "#17cfc3",
+          "#3eeadf",
+          "#75f0e8",
+          "#b1f6f2",
+          "#e8fcfb"
+        ]
+      },
+      "ticket-yellow": {
+        "role": "primary",
+        "displayName": "Ticket Yellow",
+        "canonical": "#ffcb3d",
+        "note": "same in dark",
+        "tonalRamp": [
+          "#4c3800",
+          "#805d00",
+          "#b28300",
+          "#e6a800",
+          "#ffc629",
+          "#ffd666",
+          "#ffe8a8",
+          "#fff8e5"
+        ]
+      },
+      "ticket-yellow-edge": {
+        "role": "primary",
+        "displayName": "Ticket Yellow Edge",
+        "canonical": "#d99e00",
+        "note": "same in dark",
+        "tonalRamp": [
+          "#4c3800",
+          "#805d00",
+          "#b28200",
+          "#e6a700",
+          "#ffc529",
+          "#ffd566",
+          "#ffe7a8",
+          "#fff8e5"
+        ]
+      },
+      "void-vermilion": {
+        "role": "secondary",
+        "displayName": "Void Vermilion",
+        "canonical": "#d23a2f",
+        "note": "dark: #ff7366",
+        "tonalRamp": [
+          "#3f110e",
+          "#691c17",
+          "#932820",
+          "#bd3329",
+          "#d9584f",
+          "#e48881",
+          "#f0bbb8",
+          "#faebea"
+        ]
+      },
+      "card-stock": {
+        "role": "neutral",
+        "displayName": "Card Stock",
+        "canonical": "#ffffff",
+        "note": "dark: #123634",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b2b2b2",
+          "#d4d4d4",
+          "#f2f2f2"
+        ]
+      },
+      "card-stock-tint": {
+        "role": "neutral",
+        "displayName": "Stock Tint",
+        "canonical": "#eef5f4",
+        "note": "dark: #18433f",
+        "tonalRamp": [
+          "#1c302d",
+          "#2f504c",
+          "#42706a",
+          "#559188",
+          "#78b0a8",
+          "#9fc6c1",
+          "#c8dfdc",
+          "#eff6f5"
+        ]
+      },
+      "print-navy": {
+        "role": "neutral",
+        "displayName": "Print Navy",
+        "canonical": "#1d2742",
+        "note": "print flips to #eaf6f4 in dark; the --navy constant on yellow does not",
+        "tonalRamp": [
+          "#171f35",
+          "#273459",
+          "#36497c",
+          "#465e9f",
+          "#6a81be",
+          "#95a5d0",
+          "#c3cce5",
+          "#edf0f7"
+        ]
+      },
+      "print-soft": {
+        "role": "neutral",
+        "displayName": "Print Soft",
+        "canonical": "#4b5674",
+        "note": "dark: #a8cbc6",
+        "tonalRamp": [
+          "#1e222e",
+          "#32394d",
+          "#46506c",
+          "#5a678b",
+          "#7d89ab",
+          "#a2abc3",
+          "#cacfdd",
+          "#f0f1f5"
+        ]
+      },
+      "perforation-rule": {
+        "role": "neutral",
+        "displayName": "Perforation Rule",
+        "canonical": "#cfdcdc",
+        "note": "dark: #2c5a55",
+        "tonalRamp": [
+          "#202c2c",
+          "#364a4a",
+          "#4b6767",
+          "#618585",
+          "#83a5a5",
+          "#a7bebe",
+          "#cddada",
+          "#f0f4f4"
+        ]
+      },
+      "on-ground": {
+        "role": "neutral",
+        "displayName": "On Ground",
+        "canonical": "#ffffff",
+        "note": "same in dark",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b2b2b2",
+          "#d4d4d4",
+          "#f2f2f2"
+        ]
+      },
+      "ink-special": {
+        "role": "tertiary",
+        "displayName": "Special Coral",
+        "canonical": "#e8604c",
+        "note": "stamp ink",
+        "tonalRamp": [
+          "#441009",
+          "#711b0f",
+          "#9e2614",
+          "#cb311a",
+          "#e75641",
+          "#ee8777",
+          "#f5bbb2",
+          "#fcebe8"
+        ]
+      },
+      "ink-stars": {
+        "role": "tertiary",
+        "displayName": "Star Gold",
+        "canonical": "#f2b705",
+        "note": "stamp ink",
+        "tonalRamp": [
+          "#4b3902",
+          "#7d5e03",
+          "#af8404",
+          "#e1aa05",
+          "#fbc72d",
+          "#fcd769",
+          "#fde9aa",
+          "#fef8e6"
+        ]
+      },
+      "ink-number": {
+        "role": "tertiary",
+        "displayName": "Number Navy-Blue",
+        "canonical": "#2f4a8a",
+        "note": "stamp ink",
+        "tonalRamp": [
+          "#131f39",
+          "#20335f",
+          "#2d4785",
+          "#3a5cab",
+          "#5f7ec9",
+          "#8da3d8",
+          "#becbe9",
+          "#ecf0f9"
+        ]
+      },
+      "ink-species": {
+        "role": "tertiary",
+        "displayName": "Species Teal",
+        "canonical": "#0e7f78",
+        "note": "stamp ink",
+        "tonalRamp": [
+          "#084541",
+          "#0d736d",
+          "#12a198",
+          "#17cfc3",
+          "#3eeadf",
+          "#75f0e8",
+          "#b1f6f2",
+          "#e8fcfb"
+        ]
+      },
+      "ink-tag": {
+        "role": "tertiary",
+        "displayName": "Tag Violet",
+        "canonical": "#8e4ec6",
+        "note": "stamp ink",
+        "tonalRamp": [
+          "#28133a",
+          "#421f60",
+          "#5c2b87",
+          "#7738ae",
+          "#985dcb",
+          "#b58bda",
+          "#d5bdea",
+          "#f3ecf9"
+        ]
+      },
+      "ink-slate": {
+        "role": "tertiary",
+        "displayName": "Move Slate",
+        "canonical": "#56637f",
+        "note": "stamp ink",
+        "tonalRamp": [
+          "#1f242e",
+          "#333b4c",
+          "#48536a",
+          "#5d6b89",
+          "#7f8ca9",
+          "#a4adc1",
+          "#cbd1dc",
+          "#f0f1f5"
+        ]
+      },
+      "ink-custom": {
+        "role": "tertiary",
+        "displayName": "Custom Grey",
+        "canonical": "#8a8f9c",
+        "note": "stamp ink",
+        "tonalRamp": [
+          "#232529",
+          "#3a3d45",
+          "#525661",
+          "#696e7c",
+          "#8b909d",
+          "#acb0b9",
+          "#d0d2d7",
+          "#f1f2f3"
+        ]
+      },
+      "on-ground-soft": {
+        "role": "neutral",
+        "displayName": "On Ground Soft",
+        "canonical": "rgb(255 255 255 / 0.84)",
+        "note": "dark: rgb(225 245 242 / 0.8)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The PoGoFilter wordmark only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The rally card's editable name."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section heads, sheet titles, Keep safe (1.2-1.4rem)."
+      },
+      "title-small": {
+        "displayName": "Title Small",
+        "purpose": "Suggestion card names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default text, fields."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Glosses, blurbs, notes, hints."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, pills, tabs, sub-heads, meta."
+      },
+      "stamp": {
+        "displayName": "Stamp",
+        "purpose": "Stamp labels; 12.5px on small stamps."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Literal search strings and numeric inputs."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-lift",
+        "value": "0 14px 30px -14px rgb(3 40 37 / 0.6), 0 2px 4px rgb(3 40 37 / 0.12)",
+        "purpose": "Cards, tickets, toast. Dark: 0 14px 30px -14px rgb(0 0 0 / 0.8), 0 2px 4px rgb(0 0 0 / 0.3)."
+      },
+      {
+        "name": "yellow-lift",
+        "value": "0 6px 14px -6px rgb(3 32 30 / 0.55)",
+        "purpose": "Primary yellow button on the ground."
+      },
+      {
+        "name": "stub-lift",
+        "value": "drop-shadow(0 -4px 12px rgb(3 32 30 / 0.3))",
+        "purpose": "Fixed ticket stub, cast upward (filter, not box-shadow)."
+      },
+      {
+        "name": "punched-hole",
+        "value": "inset 0 2px 3px rgb(0 0 0 / 0.35), 0 0 0 1.5px color-mix(in srgb, var(--print) 14%, transparent)",
+        "purpose": "Lanyard holes, filled with the ground."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The only easing; used by both stamp motions."
+      },
+      {
+        "name": "land",
+        "value": "300ms ease-out: rotate(tilt - 6deg) scale(1.45) blur(3px) opacity 0 -> rotate(tilt) scale(1)",
+        "purpose": "A stamp freshly added to the card."
+      },
+      {
+        "name": "slam",
+        "value": "1600ms ease-out: rotate(-14deg) scale(1.9) blur(5px) -> rotate(-8deg) scale(1) by 14%, holds, fades after 78%",
+        "purpose": "COPIED! stamp on the stub after Copy."
+      },
+      {
+        "name": "press",
+        "value": "translateY(1px)",
+        "purpose": "Active state on buttons and Copy."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "land 1ms; slam none, shown static at -8deg",
+        "purpose": "prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stub-align",
+        "value": "600px"
+      },
+      {
+        "name": "sheet-dialog",
+        "value": "700px"
+      },
+      {
+        "name": "tickets-2col",
+        "value": "760px"
+      },
+      {
+        "name": "rail-grid",
+        "value": "900px"
+      }
+    ],
+    "ground": {
+      "tile": "src/assets/route-light.svg (dark: route-dark.svg)",
+      "size": "240px 240px",
+      "description": "Faint white dotted route curves (13%) and station rings (20%) on route teal."
+    },
+    "inkFilter": {
+      "id": "ink",
+      "source": "src/components/InkDefs.tsx",
+      "description": "feTurbulence 0.9 displacement (scale 2.2) composited with low-frequency voids; applied to stamp ink layers and stamped station rings only."
+    }
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Default pill button on card stock: navy outline and print.",
+      "html": "<button class=\"ds-btn\">Edit text</button>",
+      "css": ":root{--ground:#0e7f78;--stock:#fff;--stock-2:#eef5f4;--print:#1d2742;--print-soft:#4b5674;--rule:#cfdcdc;--void:#d23a2f;--yellow:#ffcb3d;--yellow-edge:#d99e00;--navy:#1d2742;}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--print,#1d2742);background:var(--stock,#fff);color:var(--print,#1d2742);font-family:'M PLUS Rounded 1c',system-ui,sans-serif;font-weight:800;font-size:15px;cursor:pointer;}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:3px solid var(--print,#1d2742);outline-offset:2px;}.ds-btn:disabled{opacity:.4;}"
+    },
+    {
+      "name": "Yellow Button",
+      "kind": "button",
+      "refersTo": "button-yellow",
+      "description": "Primary action on the teal ground, e.g. Blank card.",
+      "html": "<div class=\"ds-ground\"><button class=\"ds-btn-yellow\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\"><path d=\"M5 12h14M12 5v14\"/></svg>Blank card</button></div>",
+      "css": ".ds-ground{background:#0e7f78;padding:20px;}.ds-btn-yellow{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid #ffcb3d;background:#ffcb3d;color:#1d2742;font-family:'M PLUS Rounded 1c',system-ui,sans-serif;font-weight:800;font-size:15px;box-shadow:0 6px 14px -6px rgb(3 32 30 / .55);cursor:pointer;}.ds-btn-yellow:active{transform:translateY(1px);}.ds-btn-yellow:focus-visible{outline:3px solid #ffcb3d;outline-offset:2px;}"
+    },
+    {
+      "name": "Copy Ticket",
+      "kind": "button",
+      "refersTo": "copy-ticket",
+      "description": "The yellow ticket Copy button with notched ends and a dashed tear line.",
+      "html": "<button class=\"ds-copy\">Copy</button>",
+      "css": ".ds-copy{display:inline-flex;align-items:center;gap:8px;min-height:56px;padding:0 26px 0 36px;border:0;border-radius:10px;background:linear-gradient(#d99e00 55%,transparent 0) 18px 6px/2px 8px repeat-y,#ffcb3d;color:#1d2742;font-family:'Dela Gothic One','M PLUS Rounded 1c',system-ui,sans-serif;word-spacing:0.14em;font-weight:400;font-size:1.15rem;cursor:pointer;-webkit-mask:radial-gradient(circle 8px at 0 50%,transparent 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 8px at 100% 50%,transparent 97%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 8px at 0 50%,transparent 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 8px at 100% 50%,transparent 97%,#000) right/51% 100% no-repeat;}.ds-copy:active{transform:translateY(1px);}.ds-copy:focus-visible{outline:3px solid #1d2742;outline-offset:2px;}"
+    },
+    {
+      "name": "Stamps",
+      "kind": "chip",
+      "refersTo": "stamp",
+      "description": "Solid ink stamp (OR term) and hollow void stamp (keep safe). The live app adds the #ink SVG roughening filter to the ink layer.",
+      "html": "<span class=\"ds-stamp\" style=\"--ink:#2f4a8a;--tx:#fff;--tilt:-1.2deg\"><span class=\"ds-stamp__ink\"></span>Today</span> <span class=\"ds-stamp ds-stamp--void\" style=\"--tilt:1.2deg\"><span class=\"ds-stamp__ink\"></span><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.75\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m4.9 4.9 14.2 14.2\"/></svg>Shiny</span>",
+      "css": ":root{--ground:#0e7f78;--stock:#fff;--stock-2:#eef5f4;--print:#1d2742;--print-soft:#4b5674;--rule:#cfdcdc;--void:#d23a2f;--yellow:#ffcb3d;--yellow-edge:#d99e00;--navy:#1d2742;}.ds-stamp{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:5px;min-height:44px;padding:0 15px;border-radius:999px;color:var(--tx);font-family:'M PLUS Rounded 1c',system-ui,sans-serif;font-weight:800;font-size:15px;line-height:1.1;white-space:nowrap;transform:rotate(var(--tilt));}.ds-stamp__ink{position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--ink);box-shadow:inset 0 0 0 3px var(--ink),inset 0 0 0 4.5px rgb(255 255 255 / .5);}.ds-stamp--void{color:#d23a2f;}.ds-stamp--void .ds-stamp__ink{background:none;box-shadow:inset 0 0 0 2.5px #d23a2f;outline:1.5px solid rgb(210 58 47 / .45);outline-offset:-6px;}"
+    },
+    {
+      "name": "Pill",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "Picker choice and tab; selected fills navy.",
+      "html": "<button class=\"ds-pill\">Lucky</button> <button class=\"ds-pill is-on\">Shadow</button>",
+      "css": ".ds-pill{min-height:42px;padding:0 14px;border:2px solid #cfdcdc;border-radius:999px;background:none;font-family:'M PLUS Rounded 1c',system-ui,sans-serif;font-weight:800;font-size:14px;color:#1d2742;cursor:pointer;}.ds-pill.is-on{border-color:#1d2742;background:#1d2742;color:#fff;}.ds-pill:focus-visible{outline:3px solid #1d2742;outline-offset:2px;}"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Rounded field with a rule border that turns navy on focus.",
+      "html": "<input class=\"ds-input\" placeholder=\"Search a species\">",
+      "css": ".ds-input{width:100%;min-height:46px;padding:8px 12px;border:2px solid #cfdcdc;border-radius:14px;background:#fff;color:#1d2742;font-family:'M PLUS Rounded 1c',system-ui,sans-serif;font-weight:500;font-size:16px;}.ds-input:focus{outline:none;border-color:#1d2742;}.ds-input::placeholder{color:#4b5674;}"
+    },
+    {
+      "name": "Suggestion Card",
+      "kind": "card",
+      "refersTo": "suggestion-card",
+      "description": "Die-cut white card with a punched lanyard hole, display name, blurb and small stamps.",
+      "html": "<div class=\"ds-ground\"><a class=\"ds-mini\" href=\"#\"><span class=\"ds-mini__hole\"></span><span class=\"ds-mini__name\">Hundos</span><span class=\"ds-mini__blurb\">Every perfect-IV Pokémon.</span></a></div>",
+      "css": ".ds-ground{background:#0e7f78;padding:20px;}.ds-mini{position:relative;display:flex;flex-direction:column;gap:6px;max-width:270px;min-height:150px;padding:30px 16px 14px;background:#fff;color:#1d2742;border-radius:22px;box-shadow:0 14px 30px -14px rgb(3 40 37 / .6),0 2px 4px rgb(3 40 37 / .12);text-decoration:none;}.ds-mini:focus-visible{outline:3px solid #ffcb3d;outline-offset:2px;}.ds-mini__hole{position:absolute;top:11px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#0e7f78;box-shadow:inset 0 2px 3px rgb(0 0 0 / .35);}.ds-mini__name{font-family:'Dela Gothic One','M PLUS Rounded 1c',system-ui,sans-serif;word-spacing:0.14em;font-weight:400;font-size:1.08rem;line-height:1.2;}.ds-mini__blurb{font-family:'M PLUS Rounded 1c',system-ui,sans-serif;font-size:13.5px;line-height:1.4;color:#4b5674;}"
+    },
+    {
+      "name": "Warning Note",
+      "kind": "custom",
+      "refersTo": "note",
+      "description": "Inline note on card stock; the warn variant mixes vermilion into stock.",
+      "html": "<p class=\"ds-note\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#d23a2f\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z\"/><path d=\"M12 9v4M12 17h.01\"/></svg><span>Built for mass transfer. Transfers can’t be undone.</span></p>",
+      "css": ".ds-note{display:flex;gap:10px;align-items:flex-start;margin:0;padding:10px 12px;border-radius:14px;background:color-mix(in srgb,#d23a2f 11%,#fff);color:#1d2742;font-family:'M PLUS Rounded 1c',system-ui,sans-serif;font-weight:500;font-size:14px;line-height:1.45;}.ds-note svg{flex:none;margin-top:1px;}"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Navy pill toast with a yellow action.",
+      "html": "<div class=\"ds-toast\"><span>Card deleted</span><button>Undo</button></div>",
+      "css": ".ds-toast{display:inline-flex;align-items:center;gap:12px;padding:10px 10px 10px 18px;min-height:48px;border-radius:999px;background:#1d2742;color:#fff;font-family:'M PLUS Rounded 1c',system-ui,sans-serif;font-weight:800;font-size:14.5px;box-shadow:0 14px 30px -14px rgb(3 40 37 / .6),0 2px 4px rgb(3 40 37 / .12);}.ds-toast button{min-height:36px;padding:0 14px;border:0;border-radius:999px;background:#ffcb3d;color:#1d2742;font:inherit;cursor:pointer;}.ds-toast button:focus-visible{outline:3px solid #ffcb3d;outline-offset:2px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Stamp Rally Card",
+    "overview": "Every filter is a rally card a trainer carries along a route. The page is a saturated route-teal ground printed with faint dotted paths and station rings; on it sit white die-cut cards with big rounded corners and a punched lanyard hole. The card's route is a vertical dotted line joining station circles: each station is an AND group, the stamps inked at it are OR terms, and the keep-safe stamps below a perforation are hollow vermilion rings with a strike. The search string is the torn-off stub, pinned in the thumb zone with a sunny yellow ticket for Copy.\n\nThe world is chunky, rounded and printed. Stamps are fat pills filled with type inks, tilted a few degrees and roughened at the edge by an SVG ink filter, while their text stays crisp. Navy is the print ink on card stock; white is the print on the ground. Density is phone-first and one-handed: 44px minimum targets everywhere, a single 600px column for the builder, and horizontally snapping suggestion rails on home.\n\nMotion is a single gesture: a stamp landing. A fresh stamp drops in from scale and ink blur to its resting tilt (300ms), and Copy slams a double-ruled \"COPIED!\" stamp onto the stub (1600ms). Nothing else animates beyond a 1px press.",
+    "keyCharacteristics": [
+      "Route-teal ground with a 240px tiled dotted-route SVG; white card stock on top.",
+      "Pill stamps in type and house inks, tilted per term, ink-filtered edges, crisp labels.",
+      "Protect stamps are a different class: hollow vermilion rings with a ban glyph, never filled.",
+      "Dela Gothic One for names and headings; M PLUS Rounded 1c for UI; M PLUS 1 Code for the string.",
+      "Perforations, scallops and punched holes cut through to the ground, not painted on.",
+      "One motion grammar: the stamp landing."
+    ],
+    "rules": [
+      {
+        "name": "The Navy-On-Yellow Rule",
+        "body": "Yellow always carries the fixed navy `#1d2742` (the `--navy` constant), in both color schemes. Print ink flips in dark mode; text on yellow does not.",
+        "section": "colors"
+      },
+      {
+        "name": "The Inks Are For Stamps Rule",
+        "body": "Type and house inks fill stamps and nothing else. UI chrome stays in teal, stock, navy, vermilion and yellow.",
+        "section": "colors"
+      },
+      {
+        "name": "The Display Word-Spacing Rule",
+        "body": "Every use of Dela Gothic One carries `word-spacing: 0.14em` (`--display-spacing`); the face sets words too tight without it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two Weights Rule",
+        "body": "M PLUS Rounded 1c ships at 500 and 800 only. Weight is either text or label; there is no middle weight.",
+        "section": "typography"
+      },
+      {
+        "name": "The Cut-Through Rule",
+        "body": "Holes, scallops and perforation notches are filled with or masked to the actual ground (teal and its route tile), so they read as holes, not dots.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** set every name and heading in Dela Gothic One with the 0.14em word spacing, and everything else in M PLUS Rounded 1c at 500 or 800.",
+      "**Do** print literal search strings in M PLUS 1 Code.",
+      "**Do** keep every tappable target at least 44px tall.",
+      "**Do** fill holes, notches and scallops with the real ground so they read as cut-through.",
+      "**Do** give each stamp a stable hashed tilt and apply the ink filter to its ink layer only.",
+      "**Do** compute stamp label color per ink with `inkText()` (navy or white by contrast).",
+      "**Do** reserve the landing motion for stamps arriving and the Copy slam, and honor reduced motion."
+    ],
+    "donts": [
+      "**Don't** fill a protect/exclude stamp; void stamps are always hollow vermilion rings with a ban icon.",
+      "**Don't** apply the `#ink` filter to text; labels stay crisp.",
+      "**Don't** use type or house inks outside stamps.",
+      "**Don't** put print ink on yellow in dark mode; yellow always carries the fixed navy.",
+      "**Don't** add motion beyond the stamp landing, the slam and the 1px press.",
+      "**Don't** use official Pokémon, Niantic or Nintendo artwork, logos or sprites anywhere in the world."
+    ]
+  }
+}

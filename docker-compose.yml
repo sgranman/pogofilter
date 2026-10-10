@@ -1,0 +1,9 @@
+# Running it on your own machine: http://localhost:8080
+# For a server behind Cloudflare Tunnel, use docker-compose.server.yml instead.
+services:
+  pogofilter:
+    build: .
+    container_name: pogofilter
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"

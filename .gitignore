@@ -1,0 +1,11 @@
+node_modules
+dist
+dev-dist
+*.local
+.env
+.DS_Store
+# Design-process scratch: screenshots and decision payloads.
+.impeccable/review/
+.impeccable/*.json
+!.impeccable/design.json
+.impeccable/questions/

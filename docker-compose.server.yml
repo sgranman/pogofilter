@@ -1,0 +1,28 @@
+# A home server behind Cloudflare Tunnel.
+#
+# No ports are published. cloudflared, on the shared `web` network, reaches
+# this container by name: route your public hostname to
+#     http://pogofilter:8080
+# Put `COMPOSE_FILE=docker-compose.server.yml` in .env so plain
+# `docker compose up -d --build` uses this file.
+services:
+  pogofilter:
+    build: .
+    container_name: pogofilter
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    networks:
+      - web
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+
+networks:
+  web:
+    external: true
