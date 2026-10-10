@@ -57,7 +57,7 @@ docker compose up -d --build    # http://localhost:8080
 
 The root Dockerfile runs the tests, builds the site, and serves `dist/` with nginx on port 8080. It sends a strict Content-Security-Policy and keeps no access logs.
 
-The production deploy to pogofilter.sgran.net is `deploy/deploy.sh`. See [deploy/README.md](deploy/README.md).
+Production (pogofilter.sgran.net) redeploys itself from `main`. See [deploy/README.md](deploy/README.md).
 
 ## Disclaimer
 

@@ -1,10 +1,17 @@
-# Lives at ~/docker/pogofilter/docker-compose.yml on the host.
+# The production stack on sgran-ubuntu. The repo is checked out at
+# ~/docker/pogofilter and deploy/update.sh runs
+#   docker compose -f deploy/docker-compose.yml up -d --build
+# whenever origin/main moves. The image is the repo-root Dockerfile, which
+# runs the tests before building, so a failing commit never goes live.
+#
 # Reachable only through the cloudflared container on the shared `web`
 # network. Public Hostname route (Zero Trust dashboard):
 #   pogofilter.sgran.net -> http://pogofilter:8080
+name: pogofilter
+
 services:
   pogofilter:
-    build: /home/sgran/pogofilter
+    build: ..
     image: pogofilter
     container_name: pogofilter
     restart: unless-stopped

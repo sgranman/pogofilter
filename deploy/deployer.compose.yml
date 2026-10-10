@@ -1,0 +1,39 @@
+# Auto-deploy runner (docker-out-of-docker) for the Ofelia scheduler.
+#
+# A long-running idle sidecar that Ofelia `job-exec`s deploy/update.sh into on
+# a schedule (see the [job-exec "pogofilter-autodeploy"] block in the server's
+# ~/docker/ofelia/config.ini). Kept in its OWN compose project (`name:` below)
+# so it is never treated as an orphan of the stack it deploys.
+#
+# Bring it up once, from the repo root on the server:
+#   docker compose -f deploy/deployer.compose.yml up -d --build
+#
+# Paths default to this box's layout; override via env only if they differ:
+#   POGOFILTER_REPO_DIR  ABSOLUTE path of this checkout on the host. Mounted at
+#                        the SAME path inside the container so the stack's
+#                        build context resolves identically on the host daemon.
+#   HOST_DOCKER_GID      GID of the host's docker group (owner of the socket).
+name: pogofilter-deploy
+
+services:
+  deployer:
+    build:
+      context: .
+      dockerfile: deployer.Dockerfile
+      args:
+        HOST_UID: ${HOST_UID:-1000}
+        HOST_GID: ${HOST_GID:-1000}
+    container_name: pogofilter-deployer
+    command: ["tail", "-f", "/dev/null"]
+    working_dir: ${POGOFILTER_REPO_DIR:-/home/sgran/docker/pogofilter}
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    # The socket is root:docker on the host; a wrong GID shows up as a loud
+    # "permission denied", not a silent skip.
+    group_add:
+      - "${HOST_DOCKER_GID:-987}"
+    environment:
+      HOME: /home/deployer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${POGOFILTER_REPO_DIR:-/home/sgran/docker/pogofilter}:${POGOFILTER_REPO_DIR:-/home/sgran/docker/pogofilter}
+    restart: unless-stopped
